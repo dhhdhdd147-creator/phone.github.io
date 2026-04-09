@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="page-card card mb-4">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h2 class="h4 mb-0">Телефоны</h2>
+      {% if is_admin %}
+        <a class="btn btn-success btn-sm" href="{{ url_for('phones_new') }}">Добавить</a>
+      {% endif %}
+    </div>
+
+    <div class="card-body">
+      <form class="row g-2 mb-3" method="get">
+        <div class="col-md-8">
+          <input
+            class="form-control"
+            name="q"
+            placeholder="Поиск по номеру, оператору, ФИО абонента"
+            value="{{ q }}"
+          />
+        </div>
+        <div class="col-md-4 d-grid">
+          <button class="btn btn-outline-primary">Найти</button>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-striped align-middle">
+          <thead>
+            <tr>
+              <th style="width: 70px">ID</th>
+              <th>Номер</th>
+              <th style="width: 150px">Оператор</th>
+              <th style="width: 150px">Статус</th>
+              <th style="width: 260px">Абонент</th>
+              <th style="width: 140px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in phones %}
+              <tr>
+                <td>{{ p.Id }}</td>
+                <td>{{ p.Number }}</td>
+                <td>{{ p.Operator or '' }}</td>
+                <td>
+                  {% if p.Status == 1 %}
+                    <span class="badge text-bg-success">Подключен</span>
+                  {% else %}
+                    <span class="badge text-bg-secondary">Отключен</span>
+                  {% endif %}
+                </td>
+                <td>{{ p.SubscriberName or 'Без абонента' }}</td>
+                <td class="text-end">
+                  <a class="btn btn-sm btn-primary" href="{{ url_for('phones_details', phone_id=p.Id) }}">Открыть</a>
+                </td>
+              </tr>
+            {% else %}
+              <tr>
+                <td colspan="6" class="text-muted">Нет данных</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

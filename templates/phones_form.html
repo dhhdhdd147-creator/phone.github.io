@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  {% if mode == "create" %}
+    <h2 class="h4 mb-3">Добавить телефон</h2>
+  {% else %}
+    <h2 class="h4 mb-3">Редактировать телефон #{{ item.Id }}</h2>
+  {% endif %}
+
+  <div class="page-card card mb-4">
+    <div class="card-body">
+      <form
+        method="post"
+        action="{% if mode == 'create' %}{{ url_for('phones_create') }}{% else %}{{ url_for('phones_update', phone_id=item.Id) }}{% endif %}"
+        {% if is_admin %}data-confirm-save="1"{% endif %}
+      >
+        <div class="mb-3">
+          <label class="form-label">Номер</label>
+          <input
+            class="form-control"
+            name="number"
+            type="tel"
+            required
+            maxlength="11"
+            inputmode="numeric"
+            pattern="[0-9]{1,11}"
+            value="{{ item.Number if item else '' }}"
+            {% if not is_admin %}disabled{% endif %}
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Оператор</label>
+          <select class="form-select" name="operator" {% if not is_admin %}disabled{% endif %}>
+            {% set current_operator = item.Operator if item else '' %}
+            <option value="" {% if not current_operator %}selected{% endif %}>Не выбрано</option>
+            <option value="МТС" {% if current_operator == 'МТС' %}selected{% endif %}>МТС</option>
+            <option value="Билайн" {% if current_operator == 'Билайн' %}selected{% endif %}>Билайн</option>
+            <option value="Теле2" {% if current_operator == 'Теле2' %}selected{% endif %}>Теле2</option>
+            <option value="Мегафон" {% if current_operator == 'Мегафон' %}selected{% endif %}>Мегафон</option>
+            <option value="Т-Мобайл" {% if current_operator == 'Т-Мобайл' %}selected{% endif %}>Т-Мобайл</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Статус</label>
+          <select class="form-select" name="status" {% if not is_admin %}disabled{% endif %}>
+            <option value="1" {% if item and item.Status == 1 %}selected{% endif %}>Подключен</option>
+            <option value="0" {% if item and item.Status == 0 %}selected{% endif %}>Отключен</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Абонент</label>
+          <select class="form-select" name="subscriber_id" required {% if not is_admin %}disabled{% endif %}>
+            {% for s in subscribers %}
+              <option
+                value="{{ s.Id }}"
+                {% if (item and item.SubscriberId == s.Id) or (not item and default_subscriber_id and s.Id == default_subscriber_id) %}selected{% endif %}
+              >
+                {{ s.FullName }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="d-flex gap-2">
+          {% if is_admin %}
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('phones_list') }}" data-confirm-exit="1">Назад</a>
+          {% else %}
+            <a class="btn btn-outline-secondary" href="{{ url_for('phones_list') }}">Назад</a>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if mode == "edit" %}
+    {% if subscriber_detail %}
+      <div class="alert alert-info mb-3">
+        <div class="fw-bold">Абонент телефона</div>
+        <div>ФИО: {{ subscriber_detail.FullName }}</div>
+        <div>Паспорт/ID: {{ subscriber_detail.PassportId or '' }}</div>
+        <div>Адрес: {{ subscriber_detail.Address or '' }}</div>
+      </div>
+    {% endif %}
+    {% if is_admin %}
+      <form method="post" action="{{ url_for('phones_delete', phone_id=item.Id) }}" onsubmit="return confirm('Удалить телефон?');">
+        <button class="btn btn-danger" type="submit">Удалить телефон</button>
+      </form>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+
