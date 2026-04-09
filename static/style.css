@@ -1,0 +1,216 @@
+:root {
+  --bg-top: #eef4ff;
+  --bg-bottom: #f7fafc;
+  --surface: #ffffff;
+  --surface-soft: #f7f9fd;
+  --border: #dbe4f2;
+  --text-main: #1f2937;
+  --text-soft: #6b7280;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --radius: 16px;
+}
+
+body.modern {
+  min-height: 100vh;
+  color: var(--text-main);
+  background-image:
+    linear-gradient(rgba(245, 249, 255, 0.84), rgba(245, 249, 255, 0.84)),
+    url("/static/priora.jpg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.app-shell {
+  min-height: calc(100vh - 48px);
+}
+
+footer {
+  margin-top: 10px;
+}
+
+.footer-muted {
+  color: var(--text-soft) !important;
+}
+
+.navbar-clean {
+  border-bottom: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+}
+
+.brand-mark {
+  color: var(--text-main);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.nav-pills-custom .nav-link {
+  border-radius: 999px;
+  color: var(--text-soft);
+  font-weight: 600;
+  padding: 0.38rem 0.9rem;
+}
+
+.nav-pills-custom .nav-link:hover {
+  color: var(--primary-dark);
+  background: #eef3ff;
+}
+
+.nav-pills-custom .nav-link.active {
+  color: #fff !important;
+  background: var(--primary);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+}
+
+.role-badge {
+  font-size: 0.85rem;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-weight: 600;
+}
+
+.page-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+  overflow: hidden;
+}
+
+.page-card .card-header {
+  background: var(--surface-soft) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--text-main);
+}
+
+.text-white-50,
+.text-muted {
+  color: var(--text-soft) !important;
+}
+
+.form-control,
+.form-select {
+  border-color: #cfd8e3;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.14);
+}
+
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.btn-outline-primary {
+  border-color: #93c5fd;
+  color: var(--primary-dark);
+}
+
+.btn-outline-primary:hover {
+  background: #eff6ff;
+  border-color: #60a5fa;
+  color: var(--primary-dark);
+}
+
+.table {
+  margin-bottom: 0;
+  color: var(--text-main);
+}
+
+.table thead th {
+  color: #374151;
+  background: #f8fafc;
+  border-bottom-color: #d7dee8;
+}
+
+.table > :not(caption) > * > * {
+  border-color: #e4eaf2;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background: #fbfdff;
+}
+
+.badge {
+  font-weight: 700;
+}
+
+.alert-info {
+  background: #eef6ff;
+  border-color: #bfdbfe;
+  color: #1e3a8a;
+}
+
+.ad-banner {
+  display: block;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto !important;
+  padding: 1rem 1.25rem;
+  border: 2px dashed rgba(17, 24, 39, 0.55);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  backdrop-filter: blur(2px);
+}
+
+.ad-link {
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  cursor: pointer;
+}
+
+.ad-link:hover {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(37, 99, 235, 0.7);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.22);
+}
+
+.ad-link:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.4);
+  outline-offset: 2px;
+}
+
+.ad-banner-title {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.ad-banner-text {
+  margin-top: 0.2rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.home-stack {
+  min-height: calc(100vh - 190px);
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card {
+  max-width: 420px;
+  margin: 70px auto 0;
+}
+
